@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="That's Amore full menu — starters, pasta, pizza, risotto, mains, salads, desserts and cocktails. Authentic Italian cuisine in Lindfield." />
+  <title>Menu — That's Amore Italian Restaurant</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Menu page specific ── */
+    .menu-page { padding-top: 72px; }
+
+    /* Tabs */
+    [data-tabs] {}
+    .tabs-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 56px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 16px 28px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .tab-btn:hover { color: var(--dark-green); }
+    .tab-btn.active {
+      color: var(--dark-green);
+      border-bottom-color: var(--dark-green);
+    }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* Section header within pane */
+    .pane-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 56px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pane-header img {
+      width: 100%; aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .pane-header-text h2 { margin: 12px 0 18px; }
+    .pane-header-text p { color: var(--text-muted); line-height: 1.8; }
+
+    /* Dietary key */
+    .dietary-key {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 36px;
+      padding: 14px 20px;
+      background: var(--parchment);
+      font-size: 0.78rem;
+    }
+    .dietary-key strong { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+    .dk { padding: 2px 8px; border: 1px solid; font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.08em; }
+    .dk-v  { color: #2d6b2d; border-color: #2d6b2d; }
+    .dk-vg { color: #4a7c4a; border-color: #4a7c4a; }
+    .dk-gf { color: #8b6020; border-color: #8b6020; }
+
+    /* Menu items grid */
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    .menu-item {
+      padding: 24px 28px;
+      border: 1px solid var(--border);
+      margin: -1px -1px 0 0;
+      transition: background var(--transition);
+    }
+    .menu-item:hover { background: var(--parchment); }
+    .menu-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .menu-item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .menu-item-badges { display: flex; gap: 4px; flex-shrink: 0; }
+    .badge {
+      font-size: 0.58rem;
+      padding: 2px 6px;
+      border: 1px solid;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.08em;
+    }
+    .badge-v  { color: #2d6b2d; border-color: #2d6b2d; }
+    .badge-vg { color: #4a7c4a; border-color: #4a7c4a; }
+    .badge-gf { color: #8b6020; border-color: #8b6020; }
+    .menu-item-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--dark-green);
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .menu-item-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* Section note */
+    .section-note {
+      margin-top: 40px;
+      padding: 18px 22px;
+      background: var(--parchment);
+      border-left: 3px solid var(--gold);
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Full width item (special) */
+    .menu-item.full { grid-column: span 2; background: var(--dark-green); }
+    .menu-item.full .menu-item-name { color: var(--cream); }
+    .menu-item.full .menu-item-price { color: var(--gold); }
+    .menu-item.full .menu-item-desc { color: rgba(255,255,255,0.6); }
+
+    /* Download PDF CTA */
+    .pdf-cta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 36px;
+      background: var(--dark-green);
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    .pdf-cta p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--cream);
+      font-style: italic;
+      flex: 1;
+    }
+    .pdf-cta small {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      margin-top: 4px;
+    }
+
+    /* Cocktail specials */
+    .cocktail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .cocktail-card {
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .cocktail-card:hover {
+      border-color: var(--gold);
+      background: var(--parchment);
+    }
+    .cocktail-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .cocktail-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .cocktail-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--dark-green);
+    }
+
+    @media (max-width: 768px) {
+      .pane-header { grid-template-columns: 1fr; }
+      .pane-header img { display: none; }
+      .menu-items { grid-template-columns: 1fr; }
+      .menu-item.full { grid-column: span 1; }
+      .cocktail-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 14px 18px; font-size: 0.66rem; }
+    }
+  </style>
+</head>
+<body class="menu-page">
+
+  <!-- OFFER BANNER -->
+  <div class="offer-banner">
+    🍕 <strong>20% off Pizza & Pasta — Tuesday to Thursday</strong> &nbsp;·&nbsp; Dine in only
+  </div>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/686e34b66e4a64450bbb5773.png" alt="That's Amore Italian Restaurant" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html" class="active">Menu</a></li>
+      <li><a href="index.html#about">Our Story</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <span class="nav-phone">📞 01444 484 824</span>
+      <a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank" rel="noopener" class="btn btn-primary">Book a Table</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileClose">✕</button>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="index.html#about">Our Story</a>
+    <a href="index.html#gallery">Gallery</a>
+    <a href="contact.html">Contact & Book</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <img class="page-hero-bg" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/686d413b175c980e07474110.jpeg" alt="Our menu" />
+    <div class="page-hero-content">
+      <p class="eyebrow" style="color:var(--gold-light)">Traditional Sicilian Cuisine</p>
+      <h1>Our <em style="color:var(--gold-light)">Menu</em></h1>
+    </div>
+  </div>
+
+  <!-- MENU CONTENT -->
+  <section class="section" style="background:var(--cream);">
+    <div class="container-wide">
+
+      <div class="dietary-key">
+        <strong>Key:</strong>
+        <span class="dk dk-v">V</span> Vegetarian &nbsp;
+        <span class="dk dk-vg">VG</span> Vegan &nbsp;
+        <span class="dk dk-gf">GF</span> Gluten Free &nbsp;&nbsp;
+        <span style="color:var(--text-muted);font-size:0.76rem;">A discretionary service charge will be applied to your bill. Please let us know of any dietary requirements.</span>
+      </div>
+
+      <div data-tabs>
+        <!-- TABS NAV -->
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="starters">Starters</button>
+          <button class="tab-btn" data-tab="pasta">Pasta</button>
+          <button class="tab-btn" data-tab="risotto">Risotto</button>
+          <button class="tab-btn" data-tab="pizza">Pizza</button>
+          <button class="tab-btn" data-tab="mains">Mains</button>
+          <button class="tab-btn" data-tab="salads">Salads</button>
+          <button class="tab-btn" data-tab="desserts">Desserts</button>
+          <button class="tab-btn" id="cocktails" data-tab="cocktails">Cocktails</button>
+        </div>
+
+        <!-- STARTERS -->
+        <div class="tab-pane active" data-pane="starters">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">Begin your journey</p>
+              <h2>Antipasti &amp;<br><em>Starters</em></h2>
+              <p>Light antipasti to start your meal — from freshly baked bruschetta and Sicilian olives to king prawns and seafood, every starter sets the tone for the evening.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/66e87b23543e744f628395c8.jpeg" alt="Starters" loading="lazy" />
+          </div>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Sicilian Olives <span class="badge badge-vg">VG</span> <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£5.95</span></div>
+              <p class="menu-item-desc">A mix of Sicilian olives, marinated in herbs and olive oil</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Bruschetta al Pomodoro <span class="badge badge-vg">VG</span></span><span class="menu-item-price">£7.50</span></div>
+              <p class="menu-item-desc">Homemade sourdough bread with garlic, olive oil and cherry tomatoes</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Homemade Garlic Bread <span class="badge badge-v">V</span></span><span class="menu-item-price">£6.95</span></div>
+              <p class="menu-item-desc">Homemade sourdough bread with garlic butter</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Squid Rings</span><span class="menu-item-price">£9.95</span></div>
+              <p class="menu-item-desc">Squid rings in flour, deep-fried and served with tartare sauce</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Burrata &amp; Parma Ham <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£11.50</span></div>
+              <p class="menu-item-desc">Fresh burrata on a bed of rocket, cherry tomatoes and Parma ham</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Caprese <span class="badge badge-vg">VG</span> <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£9.95</span></div>
+              <p class="menu-item-desc">Vine tomatoes, olives, burrata cheese, olive oil and basil served with bread</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Melanzane Parmigiana <span class="badge badge-v">V</span></span><span class="menu-item-price">£9.50</span></div>
+              <p class="menu-item-desc">Homemade aubergine bake with tomato sauce, cheese and Parmesan</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Soute Cozze (Mussels)</span><span class="menu-item-price">£9.95</span></div>
+              <p class="menu-item-desc">Mussels in a white wine and cherry tomato sauce, served with crusty bread</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Zuppa d'Mare (Seafood)</span><span class="menu-item-price">£11.45</span></div>
+              <p class="menu-item-desc">Seafood in a rich cream of wine, reduced in butter with cherry tomatoes and onion, served with bread</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">King Prawns Tempura</span><span class="menu-item-price">£12.95</span></div>
+              <p class="menu-item-desc">5 deep-fried king prawns in flour served with sweet chilli sauce</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Frittura Mista</span><span class="menu-item-price">£12.95</span></div>
+              <p class="menu-item-desc">Deep-fried squid, white bait and king prawns served with tartare sauce</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Salmone Marinato <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£10.95</span></div>
+              <p class="menu-item-desc">Marinated salmon in olive oil, lemon and parsley</p>
+            </div>
+            <div class="menu-item full">
+              <div class="menu-item-top"><span class="menu-item-name">★ King Prawns That's Amore <span class="badge badge-gf" style="border-color:rgba(255,255,255,0.4);color:rgba(255,255,255,0.7)">GF</span></span><span class="menu-item-price">£12.95</span></div>
+              <p class="menu-item-desc">Our signature starter — 5 king prawns in a cherry tomato and garlic sauce, served with warm bread. Repeatedly named a guest favourite.</p>
+            </div>
+          </div>
+          <p class="section-note">Oysters available by pre-order only. Please contact us to arrange.</p>
+        </div>
+
+        <!-- PASTA -->
+        <div class="tab-pane" data-pane="pasta">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">Handcrafted Daily</p>
+              <h2>Fresh <em>Pasta</em></h2>
+              <p>From classic Bolognese to inventive stuffed ravioli and baked gnocchi, our pasta dishes are made fresh using traditional Sicilian techniques and the finest ingredients.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/66e495cbb1374939f1f525c4.jpeg" alt="Fresh pasta" loading="lazy" />
+          </div>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Linguine Bolognese</span><span class="menu-item-price">£12.95</span></div>
+              <p class="menu-item-desc">Classic Italian pasta in a rich beef ragù sauce</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Ravioli Bolognese</span><span class="menu-item-price">£13.50</span></div>
+              <p class="menu-item-desc">Ravioli filled with spinach and ricotta in a rich meat sauce</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Ravioli Pistacchio &amp; Pancetta</span><span class="menu-item-price">£14.95</span></div>
+              <p class="menu-item-desc">Ravioli filled with spinach and ricotta in a rich pistachio cream with smoked bacon</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Penne Contadina <span class="badge badge-vg">VG</span></span><span class="menu-item-price">£12.25</span></div>
+              <p class="menu-item-desc">Fresh pasta with cherry tomatoes, courgette, aubergine and peppers</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Penne alla Norma <span class="badge badge-v">V</span></span><span class="menu-item-price">£12.95</span></div>
+              <p class="menu-item-desc">Penne in a rich cherry tomato sauce with fried aubergine, salted ricotta and basil</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Gnocchi Gorgonzola &amp; Sausage</span><span class="menu-item-price">£13.95</span></div>
+              <p class="menu-item-desc">Gnocchi in a creamy gorgonzola sauce with mushroom and Italian sausage</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Gnocchi Pesto <span class="badge badge-v">V</span></span><span class="menu-item-price">£12.50</span></div>
+              <p class="menu-item-desc">Gnocchi in a homemade basil pesto with pine nuts, topped with mozzarella</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Baked Gnocchi Sorrentina <span class="badge badge-v">V</span></span><span class="menu-item-price">£12.95</span></div>
+              <p class="menu-item-desc">Baked gnocchi in a tomato sauce topped with mozzarella cheese</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Baked Vegan Rigatoni <span class="badge badge-vg">VG</span></span><span class="menu-item-price">£12.95</span></div>
+              <p class="menu-item-desc">Baked pasta in a rich tomato sauce with mixed roasted vegetables</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Linguine Burrata <span class="badge badge-v">V</span></span><span class="menu-item-price">£13.50</span></div>
+              <p class="menu-item-desc">Tomato pasta with burrata drizzled with fresh basil sauce</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Stuffed Vegan Pasta <span class="badge badge-vg">VG</span></span><span class="menu-item-price">£14.95</span></div>
+              <p class="menu-item-desc">Stuffed homemade pasta in a light vegan creamy sauce with freshly roasted peppers, aubergines and courgettes</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Chicken Cotoletta Milanese</span><span class="menu-item-price">£16.50</span></div>
+              <p class="menu-item-desc">Fried breadcrumb chicken breast, served with linguine in tomato sauce</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RISOTTO -->
+        <div class="tab-pane" data-pane="risotto">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">Slow-cooked Perfection</p>
+              <h2>Risotto<br><em>&amp; Rice</em></h2>
+              <p>Each risotto is cooked to order with Italian arborio rice, building layers of flavour with wine, stock and the finest seasonal ingredients.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/66e495ca5d8884847ed8b438.jpeg" alt="Risotto" loading="lazy" />
+          </div>
+          <div class="menu-items">
+            <div class="menu-item full">
+              <div class="menu-item-top"><span class="menu-item-name">★ Risotto Mediterraneo <span class="badge badge-gf" style="border-color:rgba(255,255,255,0.4);color:rgba(255,255,255,0.7)">GF</span></span><span class="menu-item-price">£16.95</span></div>
+              <p class="menu-item-desc">Risotto in a rich wine sauce with cherry tomatoes, clams, mussels, squid and king prawns — our most celebrated risotto</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Risotto Funghi Porcini <span class="badge badge-vg">VG</span></span><span class="menu-item-price">£15.95</span></div>
+              <p class="menu-item-desc">Porcini mushrooms, truffle cream, garlic, olive oil, white wine, demi-glace and parsley</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Risotto Salsiccia</span><span class="menu-item-price">£14.95</span></div>
+              <p class="menu-item-desc">Creamy risotto with Italian sausage, white wine, parmesan and fresh herbs</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PIZZA -->
+        <div class="tab-pane" data-pane="pizza">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">Hand-stretched Dough</p>
+              <h2>Traditional<br><em>Pizza</em></h2>
+              <p>Made with hand-stretched dough, San Marzano tomatoes and finest Italian toppings. Our pizzas are light, crisp and utterly authentic — sourced locally from our supplier in Haywards Heath.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/685a9218a8a50fa8c0f2674d.png" alt="Pizza" loading="lazy" />
+          </div>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Margherita <span class="badge badge-v">V</span></span><span class="menu-item-price">£11.95</span></div>
+              <p class="menu-item-desc">Classic tomato base with mozzarella and fresh basil</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Fraielli &amp; Sausage</span><span class="menu-item-price">£15.95</span></div>
+              <p class="menu-item-desc">Double mozzarella, Italian sausage, fraielli, olives and onion</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Salmon Pizza</span><span class="menu-item-price">£16.95</span></div>
+              <p class="menu-item-desc">Mozzarella, cherry tomatoes, Philadelphia cream cheese, smoked salmon topped with fresh courgettes</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Quattro Formaggi <span class="badge badge-v">V</span></span><span class="menu-item-price">£14.50</span></div>
+              <p class="menu-item-desc">Four Italian cheeses: mozzarella, gorgonzola, taleggio and Parmesan on a tomato base</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Pizza Diavola</span><span class="menu-item-price">£13.95</span></div>
+              <p class="menu-item-desc">Spicy salami, mozzarella, tomato, chilli and black olives</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Calzone Carne</span><span class="menu-item-price">£15.25</span></div>
+              <p class="menu-item-desc">Folded pizza with tomato, mozzarella, chicken, ham, bolognese sauce and pepperoni, served with salad</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Calzone Verde <span class="badge badge-v">V</span></span><span class="menu-item-price">£15.25</span></div>
+              <p class="menu-item-desc">Folded pizza with tomato, mozzarella, roasted aubergine, courgette and peppers, served with salad</p>
+            </div>
+            <div class="menu-item full">
+              <div class="menu-item-top"><span class="menu-item-name">★ Poker Pizza Italian Style</span><span class="menu-item-price">£16.95</span></div>
+              <p class="menu-item-desc">Our authentic special — four in one! Margherita, sausage &amp; fraielli, stuffed ricotta calzone, and stuffed mozzarella &amp; bolognese calzone. A must-try!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAINS -->
+        <div class="tab-pane" data-pane="mains">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">Land &amp; Sea</p>
+              <h2>Main <em>Courses</em></h2>
+              <p>From grilled 8oz fillet steak to pan-fried sea bass and chicken dishes — our mains showcase the full range of classic Italian cooking.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/66e87b23d923e560915ebfb7.jpeg" alt="Main courses" loading="lazy" />
+          </div>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Filetto Grilled <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£24.95</span></div>
+              <p class="menu-item-desc">Fillet steak served with chips or mixed salad</p>
+            </div>
+            <div class="menu-item full">
+              <div class="menu-item-top"><span class="menu-item-name">★ Filetto Vitello Porcini</span><span class="menu-item-price">£26.95</span></div>
+              <p class="menu-item-desc">Grilled 8oz fillet steak in a red wine reduction with porcini mushrooms, pepper and onions — our most praised meat dish</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Pollo Pizzaiola <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£17.95</span></div>
+              <p class="menu-item-desc">Chicken breast in a winter tomato sauce with onions, capers, red peppers and olives, topped with rocket, served with roasted potatoes</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Sea Bass Filetto <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£21.95</span></div>
+              <p class="menu-item-desc">Pan-fried sea bass fillet with capers, lemon butter and seasonal vegetables</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SALADS -->
+        <div class="tab-pane" data-pane="salads">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">Fresh &amp; Light</p>
+              <h2>Salads &amp;<br><em>Lighter Dishes</em></h2>
+              <p>Generous, fresh salads served with our own house dressing and homemade croutons — perfect as a light lunch or a starter to share.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/66e495cbb1374939f1f525c4.jpeg" alt="Salads" loading="lazy" />
+          </div>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Salmon Salad <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£16.95</span></div>
+              <p class="menu-item-desc">Mixed leaf salad, olives, free-range egg, tomato and grilled salmon with house dressing and homemade croutons</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Buffalo Mozzarella Salad <span class="badge badge-v">V</span> <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£15.95</span></div>
+              <p class="menu-item-desc">Italian buffalo mozzarella, mixed salad, olives, sun-dried tomato and artichoke with homemade croutons</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Chicken Caprino Salad <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£15.95</span></div>
+              <p class="menu-item-desc">Mixed leaf salad, olives, grilled chicken, roasted veg, goat's cheese, caramelised onions and house dressing</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Smoked Salmon &amp; Avocado <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£14.95</span></div>
+              <p class="menu-item-desc">Mixed salad, cherry tomatoes, cucumber, smoked salmon and avocado with balsamic vinegar</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Caesar Salad</span><span class="menu-item-price">£13.50</span></div>
+              <p class="menu-item-desc">Mixed leaf, cherry tomatoes, onion, croutons, Parmesan, grilled chicken with house Caesar dressing</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESSERTS -->
+        <div class="tab-pane" data-pane="desserts">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">The Art of Sweet Flavours</p>
+              <h2>Dolci &amp;<br><em>Desserts</em></h2>
+              <p>End your meal with a traditional Italian dessert — or a digestivo. Our tiramisu and panna cotta are made fresh daily, and we always recommend finishing with a small limoncello.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/6859b43a91351adb2c45d9f1.jpeg" alt="Desserts" loading="lazy" />
+          </div>
+          <div class="menu-items">
+            <div class="menu-item full">
+              <div class="menu-item-top"><span class="menu-item-name">★ Tiramisu <span class="badge badge-v" style="border-color:rgba(255,255,255,0.4);color:rgba(255,255,255,0.7)">V</span></span><span class="menu-item-price">£7.95</span></div>
+              <p class="menu-item-desc">Classic Italian tiramisu with mascarpone cream, espresso-soaked ladyfingers and cocoa dusting — made fresh daily</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Panna Cotta <span class="badge badge-v">V</span> <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£6.95</span></div>
+              <p class="menu-item-desc">Silky vanilla panna cotta with a seasonal berry coulis</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Semifreddo <span class="badge badge-v">V</span></span><span class="menu-item-price">£7.50</span></div>
+              <p class="menu-item-desc">Italian frozen dessert with pistachios, amaretti biscuits and a honey drizzle</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Affogato <span class="badge badge-vg">VG</span></span><span class="menu-item-price">£6.50</span></div>
+              <p class="menu-item-desc">A shot of hot espresso poured over premium Italian vanilla gelato</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Italian Cheese Board <span class="badge badge-v">V</span></span><span class="menu-item-price">£11.95</span></div>
+              <p class="menu-item-desc">Selection of Italian cheeses served with crackers, grapes and fig chutney</p>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-top"><span class="menu-item-name">Limoncello <span class="badge badge-vg">VG</span> <span class="badge badge-gf">GF</span></span><span class="menu-item-price">£4.50</span></div>
+              <p class="menu-item-desc">Traditional Sicilian lemon liqueur — the perfect way to end your meal</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- COCKTAILS -->
+        <div class="tab-pane" data-pane="cocktails">
+          <div class="pane-header">
+            <div class="pane-header-text">
+              <p class="eyebrow">All crafted in-house</p>
+              <h2>Cocktails &amp;<br><em>Drinks</em></h2>
+              <p>Shaken, stirred or smoked — our cocktail game is strong. Everything is made in-house using simple, natural ingredients. Pair with our curated wine list or ask our team for a recommendation.</p>
+            </div>
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/66e495ca921660ec69d6ec46.jpeg" alt="Cocktails" loading="lazy" />
+          </div>
+          <div class="cocktail-grid">
+            <div class="cocktail-card reveal">
+              <div class="cocktail-name">Amore Sour</div>
+              <p class="cocktail-desc">Limoncello, prosecco, fresh lemon juice, egg white and a Sicilian lemon twist</p>
+              <div class="cocktail-price">£10.50</div>
+            </div>
+            <div class="cocktail-card reveal reveal-delay-1">
+              <div class="cocktail-name">Negroni Siciliano</div>
+              <p class="cocktail-desc">Blood orange gin, Campari, sweet vermouth, orange peel — a Sicilian twist on the Italian classic</p>
+              <div class="cocktail-price">£11.00</div>
+            </div>
+            <div class="cocktail-card reveal reveal-delay-2">
+              <div class="cocktail-name">Espresso Martini</div>
+              <p class="cocktail-desc">Vodka, fresh espresso, Kahlúa and vanilla syrup — shaken over ice</p>
+              <div class="cocktail-price">£10.00</div>
+            </div>
+            <div class="cocktail-card reveal">
+              <div class="cocktail-name">Aperol Spritz</div>
+              <p class="cocktail-desc">Aperol, prosecco, fresh orange and sparkling water — the Italian aperitivo</p>
+              <div class="cocktail-price">£9.50</div>
+            </div>
+            <div class="cocktail-card reveal reveal-delay-1">
+              <div class="cocktail-name">Bellini</div>
+              <p class="cocktail-desc">White peach purée and chilled Italian prosecco</p>
+              <div class="cocktail-price">£9.00</div>
+            </div>
+            <div class="cocktail-card reveal reveal-delay-2">
+              <div class="cocktail-name">Limoncello Spritz</div>
+              <p class="cocktail-desc">Homemade limoncello, elderflower, prosecco and fresh mint</p>
+              <div class="cocktail-price">£10.00</div>
+            </div>
+            <div class="cocktail-card reveal">
+              <div class="cocktail-name">Hugo Spritz</div>
+              <p class="cocktail-desc">St-Germain elderflower, prosecco, fresh lime and mint</p>
+              <div class="cocktail-price">£9.50</div>
+            </div>
+            <div class="cocktail-card reveal reveal-delay-1">
+              <div class="cocktail-name">Italian Old Fashioned</div>
+              <p class="cocktail-desc">Amaro, rye whiskey, walnut bitters, orange zest</p>
+              <div class="cocktail-price">£11.50</div>
+            </div>
+            <div class="cocktail-card reveal reveal-delay-2">
+              <div class="cocktail-name">Mocktail: Arancio Fresco</div>
+              <p class="cocktail-desc">Fresh orange juice, elderflower, basil syrup and sparkling water</p>
+              <div class="cocktail-price">£6.50</div>
+            </div>
+          </div>
+          <p class="section-note">We also offer a carefully curated selection of Italian and European wines. Please ask our staff for our current wine list or recommendations to pair with your meal.</p>
+        </div>
+
+      </div><!-- /data-tabs -->
+
+      <!-- PDF CTA -->
+      <div class="pdf-cta">
+        <p>
+          Download our full menu<small>Includes all current specials and seasonal dishes</small>
+        </p>
+        <a href="https://storage.googleapis.com/msgsndr/f2OGYT5s4JSZ5nHo5uZo/media/686d255d1ceb7b4478ed3bb5.pdf" target="_blank" rel="noopener" class="btn btn-gold">Download PDF Menu</a>
+        <a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank" rel="noopener" class="btn btn-outline-cream">Book a Table</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container-wide">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/686e34b66e4a64450bbb5773.png" alt="That's Amore" />
+          </div>
+          <p class="footer-tagline">Authentic Sicilian Cuisine</p>
+          <p class="footer-about">A family-run Italian restaurant in the heart of Lindfield. Serving famous dishes from across Italy and Sicily with true love and passion.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="index.html#about">Our Story</a></li>
+            <li><a href="index.html#gallery">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-hours">
+          <h4>Opening Hours</h4>
+          <ul>
+            <li><span class="day">Mon</span><span class="time">Closed</span></li>
+            <li><span class="day">Tue – Thu</span><span class="time">12–2:30 · 5:30–9:30</span></li>
+            <li><span class="day">Fri – Sat</span><span class="time">12–2:30 · 5:30–10</span></li>
+            <li><span class="day">Sunday</span><span class="time">12–3pm</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Find Us</h4>
+          <ul>
+            <li>96 High St, Lindfield</li>
+            <li>Haywards Heath RH16 2HP</li>
+            <li><a href="tel:+441444484824">01444 484 824</a></li>
+            <li><a href="mailto:thatsamore.25@outlook.com">thatsamore.25@outlook.com</a></li>
+            <li style="margin-top:8px;"><a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank" rel="noopener" style="color:var(--gold);">→ Book on OpenTable</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <p>© 2025 That's Amore Italian Restaurant · Lindfield, West Sussex. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">☆</a>
+          <a href="#" aria-label="TripAdvisor">🍴</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
