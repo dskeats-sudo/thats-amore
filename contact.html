@@ -1,13 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contact and book a table at That's Amore Italian Restaurant — 96 High St, Lindfield, Haywards Heath. Reserve online via OpenTable or call 01444 484 824." />
+  <meta name="description"
+    content="Contact and book a table at That's Amore Italian Restaurant — 96 High St, Lindfield, Haywards Heath. Reserve online via OpenTable or call 01444 484 824." />
   <title>Contact & Reservations — That's Amore Italian Restaurant</title>
+  <link rel="canonical" href="https://thatsamorelindfield.co.uk/contact.html" />
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Contact & Reservations — That's Amore Italian Restaurant" />
+  <meta property="og:description"
+    content="Book a table at That's Amore — 96 High St, Lindfield. Reserve online via OpenTable or call 01444 484 824." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thatsamorelindfield.co.uk/contact.html" />
+  <meta property="og:image"
+    content="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/7b44315c-8f59-4c86-9db2-108c9e769711.jpeg" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:site_name" content="That's Amore Italian Restaurant" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Structured Data — FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you take reservations?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! You can book a table online via OpenTable or call us directly on 01444 484 824. We strongly recommend booking, especially at weekends."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you cater for dietary requirements?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Our menu has vegetarian (V), vegan (VG) and gluten-free (GF) options clearly marked. Please let our staff know of any allergies or requirements when booking or on arrival."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the restaurant family-friendly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we love welcoming families. We have a children's menu available and are happy to accommodate pushchairs and high chairs. For larger family groups, please book in advance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer takeaway or collection?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! We offer collection — call us directly on 01444 484 824 to place a collection order. We'll have it ready and waiting for you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you have a car park?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We're located on Lindfield High Street. There is public car parking nearby on the High Street and at the village car parks. We're easily accessible on foot from the village centre."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer special menus for occasions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we offer a set menu (starter, main, dessert) which guests describe as excellent value, as well as our pizza party package for groups. Contact us to discuss your requirements."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .contact-page { padding-top: 72px; }
+    .contact-page {
+      padding-top: 72px;
+    }
 
     /* Contact grid */
     .contact-grid {
@@ -22,8 +95,10 @@
       position: relative;
       overflow: hidden;
     }
+
     .contact-map-side iframe {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       min-height: 500px;
       border: none;
       filter: grayscale(20%);
@@ -37,7 +112,10 @@
       flex-direction: column;
       justify-content: center;
     }
-    .contact-info h2 { margin: 14px 0 32px; }
+
+    .contact-info h2 {
+      margin: 14px 0 32px;
+    }
 
     .contact-detail {
       display: flex;
@@ -45,9 +123,14 @@
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
     }
-    .contact-detail:last-of-type { border-bottom: none; }
+
+    .contact-detail:last-of-type {
+      border-bottom: none;
+    }
+
     .contact-icon {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       background: var(--dark-green);
       color: var(--cream);
       display: flex;
@@ -56,6 +139,7 @@
       font-size: 1.1rem;
       flex-shrink: 0;
     }
+
     .contact-detail-text strong {
       display: block;
       font-size: 0.7rem;
@@ -65,13 +149,18 @@
       color: var(--gold);
       margin-bottom: 4px;
     }
+
     .contact-detail-text span,
     .contact-detail-text a {
       font-size: 0.95rem;
       color: var(--text);
       line-height: 1.6;
     }
-    .contact-detail-text a:hover { color: var(--dark-green); text-decoration: underline; }
+
+    .contact-detail-text a:hover {
+      color: var(--dark-green);
+      text-decoration: underline;
+    }
 
     /* Hours table */
     .hours-table {
@@ -79,15 +168,29 @@
       border-collapse: collapse;
       margin-top: 6px;
     }
-    .hours-table tr { border-bottom: 1px solid rgba(0,0,0,0.06); }
-    .hours-table tr:last-child { border-bottom: none; }
+
+    .hours-table tr {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .hours-table tr:last-child {
+      border-bottom: none;
+    }
+
     .hours-table td {
       padding: 7px 0;
       font-size: 0.88rem;
       color: var(--text);
     }
-    .hours-table td:last-child { text-align: right; color: var(--text-muted); }
-    .hours-table .closed { color: rgba(0,0,0,0.3); }
+
+    .hours-table td:last-child {
+      text-align: right;
+      color: var(--text-muted);
+    }
+
+    .hours-table .closed {
+      color: rgba(0, 0, 0, 0.3);
+    }
 
     /* Book section */
     .book-section {
@@ -98,42 +201,59 @@
       gap: 80px;
       align-items: center;
     }
-    .book-text h2 { color: var(--cream); margin: 14px 0 22px; }
-    .book-text p { color: rgba(255,255,255,0.6); line-height: 1.8; font-size: 0.95rem; margin-bottom: 16px; }
+
+    .book-text h2 {
+      color: var(--cream);
+      margin: 14px 0 22px;
+    }
+
+    .book-text p {
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
     .book-methods {
       display: flex;
       flex-direction: column;
       gap: 14px;
       margin-top: 36px;
     }
+
     .book-method {
       display: flex;
       align-items: center;
       gap: 16px;
       padding: 18px 22px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       text-decoration: none;
       transition: var(--transition);
     }
+
     .book-method:hover {
-      background: rgba(200,162,82,0.12);
+      background: rgba(200, 162, 82, 0.12);
       border-color: var(--gold);
     }
+
     .book-method-icon {
       font-size: 1.4rem;
       width: 40px;
       text-align: center;
     }
+
     .book-method-text strong {
       display: block;
       color: var(--cream);
       font-size: 0.9rem;
     }
+
     .book-method-text span {
       font-size: 0.78rem;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255, 255, 255, 0.45);
     }
+
     .book-method-arrow {
       margin-left: auto;
       color: var(--gold);
@@ -141,17 +261,25 @@
     }
 
     /* FAQ */
-    .faq-section { background: var(--cream); }
-    .faq-section h2 { margin: 14px 0 48px; }
+    .faq-section {
+      background: var(--cream);
+    }
+
+    .faq-section h2 {
+      margin: 14px 0 48px;
+    }
+
     .faq-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
+
     .faq-item {
       padding: 28px 30px;
       border: 1px solid var(--border);
     }
+
     .faq-item h4 {
       font-family: 'Playfair Display', serif;
       font-size: 1.05rem;
@@ -159,6 +287,7 @@
       color: var(--text);
       margin-bottom: 12px;
     }
+
     .faq-item p {
       font-size: 0.88rem;
       color: var(--text-muted);
@@ -175,29 +304,65 @@
       gap: 30px;
       flex-wrap: wrap;
     }
+
     .pizza-party h3 {
       font-family: 'Playfair Display', serif;
       color: var(--cream);
       font-size: 1.8rem;
       font-weight: 400;
     }
-    .pizza-party p { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-top: 8px; max-width: 480px; }
+
+    .pizza-party p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      margin-top: 8px;
+      max-width: 480px;
+    }
 
     @media (max-width: 1024px) {
-      .contact-grid { grid-template-columns: 1fr; }
-      .contact-map-side iframe { min-height: 350px; }
-      .contact-info { padding: 64px 40px; }
-      .book-section { grid-template-columns: 1fr; gap: 48px; padding: 72px 40px; }
-      .faq-grid { grid-template-columns: 1fr; }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-map-side iframe {
+        min-height: 350px;
+      }
+
+      .contact-info {
+        padding: 64px 40px;
+      }
+
+      .book-section {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 72px 40px;
+      }
+
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     @media (max-width: 768px) {
-      .contact-info { padding: 56px 24px; }
-      .book-section { padding: 64px 24px; }
-      .faq-section { padding: 64px 24px; }
-      .pizza-party { padding: 48px 24px; }
+      .contact-info {
+        padding: 56px 24px;
+      }
+
+      .book-section {
+        padding: 64px 24px;
+      }
+
+      .faq-section {
+        padding: 64px 24px;
+      }
+
+      .pizza-party {
+        padding: 48px 24px;
+      }
     }
   </style>
 </head>
+
 <body class="contact-page">
 
   <!-- OFFER BANNER -->
@@ -208,7 +373,9 @@
   <!-- NAV -->
   <nav class="site-nav">
     <a href="index.html" class="nav-logo">
-      <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/686e34b66e4a64450bbb5773.png" alt="That's Amore Italian Restaurant" />
+      <img
+        src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/686e34b66e4a64450bbb5773.png"
+        alt="That's Amore Italian Restaurant" />
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -219,7 +386,8 @@
     </ul>
     <div class="nav-right">
       <span class="nav-phone">📞 01444 484 824</span>
-      <a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank" rel="noopener" class="btn btn-primary">Book a Table</a>
+      <a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank"
+        rel="noopener" class="btn btn-primary">Book a Table</a>
     </div>
     <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -238,7 +406,9 @@
 
   <!-- PAGE HERO -->
   <div class="page-hero">
-    <img class="page-hero-bg" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/7b44315c-8f59-4c86-9db2-108c9e769711.jpeg" alt="Restaurant interior" />
+    <img class="page-hero-bg"
+      src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/7b44315c-8f59-4c86-9db2-108c9e769711.jpeg"
+      alt="Restaurant interior" />
     <div class="page-hero-content">
       <p class="eyebrow" style="color:var(--gold-light)">We'd Love to Have You</p>
       <h1>Contact &amp;<br><em style="color:var(--gold-light)">Reservations</em></h1>
@@ -250,9 +420,7 @@
     <div class="contact-map-side">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2503.245765232827!2d-0.07278768405813!3d51.00862317956032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4875e0c4c5bdb5a7%3A0x3e75c5c0f5b87e2c!2s96%20High%20St%2C%20Lindfield%2C%20Haywards%20Heath%20RH16%202HP!5e0!3m2!1sen!2suk!4v1"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
         title="That's Amore on Google Maps">
       </iframe>
     </div>
@@ -286,10 +454,22 @@
         <div class="contact-detail-text">
           <strong>Opening Hours</strong>
           <table class="hours-table">
-            <tr><td>Monday</td><td class="closed">Closed</td></tr>
-            <tr><td>Tuesday – Thursday</td><td>12–2:30pm · 5:30–9:30pm</td></tr>
-            <tr><td>Friday – Saturday</td><td>12–2:30pm · 5:30–10pm</td></tr>
-            <tr><td>Sunday</td><td>12–3pm</td></tr>
+            <tr>
+              <td>Monday</td>
+              <td class="closed">Closed</td>
+            </tr>
+            <tr>
+              <td>Tuesday – Thursday</td>
+              <td>12–2:30pm · 5:30–9:30pm</td>
+            </tr>
+            <tr>
+              <td>Friday – Saturday</td>
+              <td>12–2:30pm · 5:30–10pm</td>
+            </tr>
+            <tr>
+              <td>Sunday</td>
+              <td>12–3pm</td>
+            </tr>
           </table>
         </div>
       </div>
@@ -301,12 +481,15 @@
     <div class="book-text reveal">
       <p class="eyebrow" style="color:var(--gold);margin-bottom:14px;">Reserve Your Table</p>
       <h2>Ready for an <em style="color:var(--gold-light)">Unforgettable</em> Evening?</h2>
-      <p>Booking is quick and easy — use our OpenTable reservation system to secure your preferred date and time, or call us directly.</p>
-      <p>For large groups, special occasions, or pizza party enquiries, please call us so we can make sure everything is perfect for you.</p>
+      <p>Booking is quick and easy — use our OpenTable reservation system to secure your preferred date and time, or
+        call us directly.</p>
+      <p>For large groups, special occasions, or pizza party enquiries, please call us so we can make sure everything is
+        perfect for you.</p>
     </div>
     <div>
       <div class="book-methods reveal reveal-delay-1">
-        <a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank" rel="noopener" class="book-method">
+        <a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank"
+          rel="noopener" class="book-method">
           <div class="book-method-icon">🍽️</div>
           <div class="book-method-text">
             <strong>Book via OpenTable</strong>
@@ -338,9 +521,11 @@
   <div class="pizza-party">
     <div>
       <h3>🍕 Pizza Party Enquiries</h3>
-      <p>Hosting a birthday, celebration or group event? Ask us about our pizza party packages — perfect for groups of all sizes.</p>
+      <p>Hosting a birthday, celebration or group event? Ask us about our pizza party packages — perfect for groups of
+        all sizes.</p>
     </div>
-    <a href="https://thatsamorelindfield.co.uk/home-499629" target="_blank" rel="noopener" class="btn btn-gold">Pizza Party Enquiry →</a>
+    <a href="https://thatsamorelindfield.co.uk/home-499629" target="_blank" rel="noopener" class="btn btn-gold">Pizza
+      Party Enquiry →</a>
   </div>
 
   <!-- FAQ -->
@@ -351,27 +536,33 @@
       <div class="faq-grid">
         <div class="faq-item reveal reveal-delay-1">
           <h4>Do you take reservations?</h4>
-          <p>Yes! You can book a table online via OpenTable using the link above, or call us directly on 01444 484 824. We strongly recommend booking, especially at weekends.</p>
+          <p>Yes! You can book a table online via OpenTable using the link above, or call us directly on 01444 484 824.
+            We strongly recommend booking, especially at weekends.</p>
         </div>
         <div class="faq-item reveal reveal-delay-2">
           <h4>Do you cater for dietary requirements?</h4>
-          <p>Absolutely. Our menu has vegetarian (V), vegan (VG) and gluten-free (GF) options clearly marked. Please let our staff know of any allergies or requirements when booking or on arrival.</p>
+          <p>Absolutely. Our menu has vegetarian (V), vegan (VG) and gluten-free (GF) options clearly marked. Please let
+            our staff know of any allergies or requirements when booking or on arrival.</p>
         </div>
         <div class="faq-item reveal reveal-delay-1">
           <h4>Is the restaurant family-friendly?</h4>
-          <p>Yes, we love welcoming families. We have a children's menu available and are happy to accommodate pushchairs and high chairs. For larger family groups, please book in advance.</p>
+          <p>Yes, we love welcoming families. We have a children's menu available and are happy to accommodate
+            pushchairs and high chairs. For larger family groups, please book in advance.</p>
         </div>
         <div class="faq-item reveal reveal-delay-2">
           <h4>Do you offer takeaway or collection?</h4>
-          <p>Yes! We offer collection — call us directly on 01444 484 824 to place a collection order. We'll have it ready and waiting for you.</p>
+          <p>Yes! We offer collection — call us directly on 01444 484 824 to place a collection order. We'll have it
+            ready and waiting for you.</p>
         </div>
         <div class="faq-item reveal reveal-delay-1">
           <h4>Do you have a car park?</h4>
-          <p>We're located on Lindfield High Street. There is public car parking nearby on the High Street and at the village car parks. We're easily accessible on foot from the village centre.</p>
+          <p>We're located on Lindfield High Street. There is public car parking nearby on the High Street and at the
+            village car parks. We're easily accessible on foot from the village centre.</p>
         </div>
         <div class="faq-item reveal reveal-delay-2">
           <h4>Do you offer special menus for occasions?</h4>
-          <p>Yes, we offer a set menu (starter, main, dessert) which guests describe as excellent value, as well as our pizza party package for groups. Contact us to discuss your requirements.</p>
+          <p>Yes, we offer a set menu (starter, main, dessert) which guests describe as excellent value, as well as our
+            pizza party package for groups. Contact us to discuss your requirements.</p>
         </div>
       </div>
     </div>
@@ -383,10 +574,13 @@
       <div class="footer-grid">
         <div>
           <div class="footer-logo">
-            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/686e34b66e4a64450bbb5773.png" alt="That's Amore" />
+            <img
+              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/f2OGYT5s4JSZ5nHo5uZo/media/686e34b66e4a64450bbb5773.png"
+              alt="That's Amore" />
           </div>
           <p class="footer-tagline">Authentic Sicilian Cuisine</p>
-          <p class="footer-about">A family-run Italian restaurant in the heart of Lindfield. Serving famous dishes from across Italy and Sicily with true love and passion.</p>
+          <p class="footer-about">A family-run Italian restaurant in the heart of Lindfield. Serving famous dishes from
+            across Italy and Sicily with true love and passion.</p>
         </div>
         <div class="footer-col">
           <h4>Navigate</h4>
@@ -414,7 +608,9 @@
             <li>Haywards Heath RH16 2HP</li>
             <li><a href="tel:+441444484824">01444 484 824</a></li>
             <li><a href="mailto:thatsamore.25@outlook.com">thatsamore.25@outlook.com</a></li>
-            <li style="margin-top:8px;"><a href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank" rel="noopener" style="color:var(--gold);">→ Book on OpenTable</a></li>
+            <li style="margin-top:8px;"><a
+                href="https://www.opentable.co.uk/restref/client/?rid=286152&restref=286152&lang=en-GB" target="_blank"
+                rel="noopener" style="color:var(--gold);">→ Book on OpenTable</a></li>
           </ul>
         </div>
       </div>
@@ -432,4 +628,5 @@
 
   <script src="js/main.js"></script>
 </body>
+
 </html>
