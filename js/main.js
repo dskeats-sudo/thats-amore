@@ -87,57 +87,68 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ============================================================
-   Lead Capture Modal — VIP Signup Popup
+   Lead Capture Modal — GHL Form Integration
    ============================================================
-   CONFIGURATION:
-   Set your GoHighLevel (or any) webhook URL below.
-   When the URL is empty the form still works visually
-   but won't POST anywhere (good for local testing).
+   The popup shows after a time delay or scroll trigger.
+   The form inside is a GoHighLevel embedded form — all
+   submissions go straight into the GHL CRM.
    ============================================================ */
 (function () {
 
   // ─── CONFIG ───────────────────────────────────────────────
-  var GHL_WEBHOOK_URL = '';   // ← paste your GHL webhook here
-  var SHOW_DELAY     = 20000; // ms before auto-show (20 s)
+  var SHOW_DELAY = 20000; // ms before auto-show (20 s)
   var SCROLL_TRIGGER = 0.40;  // show at 40 % scroll
-  var DISMISS_DAYS   = 7;     // re-show after 7 days
-  var STORAGE_KEY    = 'ta_lead_dismiss';
-  var SUBMIT_KEY     = 'ta_lead_done';
+  var DISMISS_DAYS = 7;     // re-show after 7 days
+  var STORAGE_KEY = 'ta_lead_dismiss';
   // ──────────────────────────────────────────────────────────
-
-  // Already submitted? Done.
-  if (localStorage.getItem(SUBMIT_KEY)) return;
 
   // Dismissed recently? Done.
   var d = localStorage.getItem(STORAGE_KEY);
   if (d && Date.now() < parseInt(d, 10)) return;
 
-  // ─── Build modal HTML ────────────────────────────────────
+  // ─── Build modal HTML with GHL iframe ─────────────────────
   var html =
     '<div class="lead-overlay" id="leadOverlay">' +
-      '<div class="lead-modal">' +
-        '<button class="lead-close" id="leadClose" aria-label="Close">&times;</button>' +
-        '<div class="lead-badge">✦</div>' +
-        '<h3>Join Our <em>VIP List</em></h3>' +
-        '<p>Be the first to hear about seasonal specials, exclusive events and offers at That\'s Amore.</p>' +
-        '<form id="leadForm" autocomplete="on">' +
-          '<input type="text"  name="name"  placeholder="Your name"        required autocomplete="name" />' +
-          '<input type="email" name="email" placeholder="Email address"    required autocomplete="email" />' +
-          '<input type="tel"   name="phone" placeholder="Phone (optional)"          autocomplete="tel" />' +
-          '<button type="submit" class="btn btn-gold lead-submit">Join the List</button>' +
-        '</form>' +
-        '<p class="lead-fine">No spam, ever. Just good food and great offers.</p>' +
-      '</div>' +
+    '<div class="lead-modal lead-modal-ghl">' +
+    '<button class="lead-close" id="leadClose" aria-label="Close">&times;</button>' +
+    '<div class="lead-badge">✦</div>' +
+    '<h3>Join Our <em>VIP List</em></h3>' +
+    '<p>Be the first to hear about seasonal specials, exclusive events and offers at That\'s Amore.</p>' +
+    '<div class="ghl-form-wrap">' +
+    '<iframe ' +
+    'src="https://api.leadconnectorhq.com/widget/form/NMlc4ir0TlykGGKvSwvR" ' +
+    'style="width:100%;border:none;border-radius:3px" ' +
+    'id="inline-NMlc4ir0TlykGGKvSwvR" ' +
+    'data-layout="{\'id\':\'INLINE\'}" ' +
+    'data-trigger-type="alwaysShow" ' +
+    'data-trigger-value="" ' +
+    'data-activation-type="alwaysActivated" ' +
+    'data-activation-value="" ' +
+    'data-deactivation-type="neverDeactivate" ' +
+    'data-deactivation-value="" ' +
+    'data-form-name="Get offers" ' +
+    'data-height="280" ' +
+    'data-layout-iframe-id="inline-NMlc4ir0TlykGGKvSwvR" ' +
+    'data-form-id="NMlc4ir0TlykGGKvSwvR" ' +
+    'title="Get offers" ' +
+    '></iframe>' +
+    '</div>' +
+    '<p class="lead-fine">No spam, ever. Just good food and great offers.</p>' +
+    '</div>' +
     '</div>';
 
   var wrap = document.createElement('div');
   wrap.innerHTML = html;
   document.body.appendChild(wrap);
 
-  var overlay  = document.getElementById('leadOverlay');
+  // Load the GHL form embed script
+  var ghlScript = document.createElement('script');
+  ghlScript.src = 'https://link.msgsndr.com/js/form_embed.js';
+  document.body.appendChild(ghlScript);
+
+  var overlay = document.getElementById('leadOverlay');
   var closeBtn = document.getElementById('leadClose');
-  var form     = document.getElementById('leadForm');
-  var shown    = false;
+  var shown = false;
 
   function show() {
     if (shown) return;
@@ -164,50 +175,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── Close ───────────────────────────────────────────────
   closeBtn.addEventListener('click', hide);
   overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
-
-  // ─── Submit ──────────────────────────────────────────────
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    var data = {
-      full_name : form.name.value,
-      email     : form.email.value,
-      phone     : form.phone.value,
-      source    : 'website_vip_popup',
-      page_url  : window.location.href
-    };
-
-    var btn = form.querySelector('.lead-submit');
-    btn.textContent = 'Sending\u2026';
-    btn.disabled = true;
-
-    function thankYou() {
-      localStorage.setItem(SUBMIT_KEY, '1');
-      var modal = form.closest('.lead-modal');
-      modal.innerHTML =
-        '<div class="lead-thankyou">' +
-          '<div class="lead-badge">🎉</div>' +
-          '<h3>Welcome to the <em>Family</em></h3>' +
-          '<p>Thank you! You\'re now on our VIP list. We\'ll be in touch with exclusive offers and seasonal specials.</p>' +
-          '<a href="menu.html" class="btn btn-gold lead-submit">Explore the Menu</a>' +
-        '</div>';
-      setTimeout(hide, 5000);
-    }
-
-    if (GHL_WEBHOOK_URL) {
-      fetch(GHL_WEBHOOK_URL, {
-        method  : 'POST',
-        headers : { 'Content-Type': 'application/json' },
-        body    : JSON.stringify(data),
-        mode    : 'no-cors'
-      }).then(thankYou).catch(function () {
-        // Webhook failed but still treat as success for UX
-        thankYou();
-      });
-    } else {
-      // No webhook configured — just show thank-you
-      thankYou();
-    }
-  });
 
 })();
